@@ -20,9 +20,14 @@ Which genres contribute the most to global sales?
 
 SQL:
 ```sql
+SELECT Genre, SUM(Global_Sales) AS total_sales
+FROM vgsales
+GROUP BY Genre
+ORDER BY total_sales DESC;
 
 ```
-Findings:
+Findings: Action - 1751.18
+
 ```findings
 
 ```
@@ -30,9 +35,12 @@ Which platforms generate the highest global sales?
 
 SQL:
 ```sql
-
+SELECT Platform, ROUND(SUM(Global_Sales),2) AS total_sales
+FROM vgsales
+GROUP BY Platform
+ORDER BY total_sales DESC; 
 ```
-Findings:
+Findings: PS2 - 1255.64
 ```findings
 
 ```
@@ -40,9 +48,13 @@ Which publishers are the most successful in terms of global sales?
 
 SQL:
 ```sql
-
+SELECT Publisher, ROUND(SUM(Global_Sales),2) AS total_sales
+FROM vgsales
+GROUP BY Publisher
+ORDER BY total_sales DESC
+LIMIT 10;
 ```
-Findings:
+Findings:Nintendo - 1786.56
 ```findings
 
 ```
@@ -50,9 +62,70 @@ How does success vary across regions (North America, Europe, Japan, Others)?
 
 SQL:
 ```sql
+SELECT 
+    Genre,
+    SUM(NA_Sales) AS NA,
+    SUM(EU_Sales) AS EU,
+    SUM(JP_Sales) AS JP,
+    SUM(Other_Sales) AS Other
+FROM vgsales
+GROUP BY Genre
+ORDER BY NA DESC;
 
+SELECT 
+    Genre,
+    SUM(NA_Sales) AS NA,
+    SUM(EU_Sales) AS EU,
+    SUM(JP_Sales) AS JP,
+    SUM(Other_Sales) AS Other
+FROM vgsales
+GROUP BY Genre
+ORDER BY EU DESC;
+
+
+SELECT 
+    Genre,
+    SUM(NA_Sales) AS NA,
+    SUM(EU_Sales) AS EU,
+    SUM(JP_Sales) AS JP,
+    SUM(Other_Sales) AS Other
+FROM vgsales
+GROUP BY Genre
+ORDER BY JP DESC;
+
+
+SELECT 
+    Genre,
+    SUM(NA_Sales) AS NA,
+    SUM(EU_Sales) AS EU,
+    SUM(JP_Sales) AS JP,
+    SUM(Other_Sales) AS Other
+FROM vgsales
+GROUP BY Genre
+ORDER BY Other DESC;
+
+
+SELECT 
+    Genre,
+    SUM(NA_Sales) AS NA,
+    SUM(EU_Sales) AS EU,
+    SUM(JP_Sales) AS JP,
+    SUM(Other_Sales) AS Other
+FROM vgsales
+GROUP BY Genre
+ORDER BY EU DESC;
 ```
-Findings:
+Findings: 
+NA
+Action - 877.83
+EU
+Action - 525
+JP
+Role-Playing - 352.31
+Other
+Action - 187.38
+
+
 ```findings
 
 ```
@@ -60,9 +133,13 @@ What are the trends over time in game sales by genre and platform?
 
 SQL:
 ```sql
-
+SELECT Year, Genre, SUM(Global_Sales) AS total_sales
+FROM vgsales
+WHERE Year IS NOT NULL
+GROUP BY Year, Genre
+ORDER BY Year, total_sales DESC;
 ```
-Findings:
+Findings: Trend is PS3 between 2010
 ```findings
 
 ```
@@ -70,9 +147,20 @@ Which platforms are most successful for specific genres?
 
 SQL:
 ```sql
+SELECT Platform, Genre, SUM(Global_Sales) AS total_sales
+FROM vgsales
+GROUP BY Platform, Genre
+ORDER BY Genre, total_sales DESC;
 
 ```
-Findings:
+Findings: PS3 Action - 307.88 
+          DS Adventure - 47.29
+          PS2 Fighting - 92.60
+          Wii Misc - 221.06
+          NES Platform - 95.78
+          DS Puzzle - 84.29
+          PS2 Racing 156.28
+          
 ```findings
 
 ```
