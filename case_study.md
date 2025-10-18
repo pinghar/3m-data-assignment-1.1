@@ -20,7 +20,7 @@ Which genres contribute the most to global sales?
 
 SQL:
 ```sql
-
+1
 ```
 Findings:
 ```findings
